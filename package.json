@@ -1,0 +1,23 @@
+{
+  "name": "shrink-game",
+  "version": "1.0.0",
+  "description": "game for the shrink hackathon",
+  "homepage": "https://github.com/SillySelene/shrink-game#readme",
+  "bugs": {
+    "url": "https://github.com/SillySelene/shrink-game/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SillySelene/shrink-game.git"
+  },
+  "license": "MIT",
+  "author": "Selene",
+  "type": "commonjs",
+  "main": "index.html",
+  "scripts": {
+    "test": "none"
+  },
+  "devDependencies": {
+    "terser": "^5.51.2"
+  }
+}

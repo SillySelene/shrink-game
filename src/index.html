@@ -1,0 +1,220 @@
+<body>
+
+  <meta name=viewport content=width=device-width, initial-scale=0.0 />
+
+
+  <h1 id=header>Welcome to Silly Clicker!!!</h1>
+  <h2 id=header>A Video Game by SillySelene, Made for Shrink</h2>
+
+
+  <h3 id=nb-c></h3>
+
+  <main>
+    <button id=sup></button>
+
+    <div id=upgr class=sh>
+
+    </div>
+    <div id=bst class=sh>
+
+    </div>
+  </main>
+
+  <style>
+    body {
+      background: black;
+      color: #f5f5f5;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      width: 100vw;
+      font-size: 16pt;
+      justify-content: center;
+      align-items: center;
+    }
+
+    button {
+      font-size: 16;
+      padding: .5rem;
+      background-color: #999;
+      border: none;
+
+    }
+
+    #sup {
+      padding: 8rem;
+      height: 30px;
+      border-radius: 100%;
+      background-color: ddd;
+      color: black;
+      border: none;
+    }
+
+
+
+    button:hover {
+      background-color: eee;
+    }
+
+    button:active {
+      background-color: gray;
+    }
+
+    .sh {
+      margin: 1rem;
+      width: 60vw;
+      display: flex;
+      flex-wrap: wrap;
+
+    }
+
+    .sI {
+      margin: .75rem;
+      background-color: #777;
+      padding: .5rem;
+      text-align: center;
+      width: 15vw;
+    }
+
+
+    @media only screen and (max-width: 768px) {
+      main {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #sup {
+        height: width;
+        width: 25px;
+      }
+
+      .sI {
+        width: 100vw;
+      }
+    }
+  </style>
+  <script>
+
+
+    var CL = "Clicks";
+    var c = "click";
+    var PS = "Passive";
+    var s = "second";
+
+    var t = true;
+    var f = false;
+
+
+    var sc = 0;
+    var scAdd = 1;
+    var scMul = 1;
+    var pssAdd = 0;
+    var pssMul = 1;
+
+    const $ = id => document.getElementById(id);
+
+    class Upg {
+
+      constructor(iCost, iText, iDesc, iScoreAdd, iScoreMul, costMul, costAdd, iElement, isClickUpg) {
+        this.c = iCost;
+        this.t = iText;
+        this.d = iDesc;
+        this.SA = iScoreAdd;
+        this.SM = iScoreMul;
+        this.e = iElement;
+        this.ca = costAdd;
+        this.cm = costMul;
+        this.cU = isClickUpg;
+        if (isClickUpg == t) {
+          $("upgr").appendChild(iElement);
+        }
+        else {
+          $("bst").appendChild(iElement);
+        }
+
+        this.e.children[0].textContent = this.t;
+        this.e.children[2].textContent = this.d;
+
+        this.e.children[1].onclick = () => {this.handlePurchase()};
+
+        this.intrvl = setInterval(() => {
+          this.e.children[1].textContent = `Cost: ${this.c}`
+        }, 50)
+      }
+
+      handlePurchase() {
+        if (sc >= this.c) {
+          sc -= this.c;
+          if (this.cU == t) {
+            scAdd += this.SA;
+            scMul += this.SM;
+          } else {
+            pssAdd += this.SA;
+            pssAdd += this.SM;
+          }
+          this.c += this.ca;
+          this.c *= this.cm;
+        }
+      }
+
+    }
+
+    let intrvl = setInterval(() => {
+      $("nb-c").textContent = `Nibbles: ${sc}`
+    }, 50)
+
+    let intrvl2 = setInterval(() => {
+      sc += pssAdd * pssMul;
+    }, 1000)
+
+    let dG = (str, str2) => {return `Provides ${str} Nibbles every ${str2}`}
+    function gSE() {
+      let div = document.createElement("div");
+      div.classList.add("sI");
+      let h1 = document.createElement("h2");
+      div.appendChild(h1);
+      let b = document.createElement("button");
+      div.appendChild(b);
+      let p = document.createElement("p");
+      div.appendChild(p);
+
+      return div
+    }
+
+    var upgrades = [
+      new Upg(4, `+1 ${CL}`, dG("+1", c), 1, 1, 1, 2, gSE(), t),
+      new Upg(50, `+5 ${CL}`, dG("+5", c), 5, 1, 1, 20, gSE(), t),
+      new Upg(200, `+10 ${CL}`, dG("+10", c), 10, 1, 1, 100, gSE(), t),
+      new Upg(1000, `+100 ${CL}`, dG("+100", c), 100, 1, 1.2, 0, gSE(), t),
+      new Upg(2000, `+250 ${CL}`, dG("+250", c), 250, 1, 1.5, 0, gSE(), t),
+      new Upg(2500, `x2 ${CL}`, dG("x2", c), 0, 2, 4, 0, gSE(), t),
+      new Upg(10000, `x3 ${CL}`, dG("x3", c), 0, 3, 6, 0, gSE(), t),
+      new Upg(50000, `x4 ${CL}`, dG("x4", c), 0, 4, 8, 0, gSE(), t),
+      new Upg(100000, `x5 ${CL}`, dG("x5", c), 0, 5, 10, 0, gSE(), t),
+      new Upg(1000, `+1 ${PS}`, dG("+1", s), 1, 1, 4, 1, gSE(), f),
+      new Upg(2500, `+5 ${PS}`, dG("+5", s), 5, 1, 40, 1, gSE(), f),
+      new Upg(5000, `+10 ${PS}`, dG("+10", s), 10, 1, 200, 1, gSE(), f),
+      new Upg(10000, `+100 ${PS}`, dG("+100", s), 100, 1, 1500, 0, gSE(), f),
+      new Upg(25000, `+250 ${PS}`, dG("+250", s), 250, 1, 3000, 0, gSE(), f),
+      new Upg(50000, `x2 ${PS}`, dG("x2", s), 0, 2, 6000, 0, gSE(), f),
+      new Upg(100000, `x3 ${PS}`, dG("x3", s), 0, 3, 9000, 0, gSE(), f),
+      new Upg(500000, `x4 ${PS}`, dG("x4", s), 0, 4, 12, 0, gSE(), f),
+      new Upg(1000000, `x5 ${PS}`, dG("x5", s), 0, 5, 15, 0, gSE(), f)
+    ]
+
+    function nu(n) {
+      sc += n * scMul;
+      $("nb-c").textContent = `Nibbles: ${sc}`;
+
+    }
+    $("sup").onclick = () => {nu(scAdd)};
+
+  </script>
+</body>
